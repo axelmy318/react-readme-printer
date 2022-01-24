@@ -9,7 +9,7 @@ import rehypeHighlight from 'rehype-highlight';
 import PropTypes from 'prop-types';
 
 
-const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository, markdownConfig }) => {
+const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository, useRemarkGfm, useRehypeHighlight, markdownConfig }) => {
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const MarkdownPrinter = ({ username, repository, branch, markdown, showRepositor
                     if(response.success)
                         setCurrentMD(response.data)
                     else
-                        setCurrentMD(`### error loading file`)
+                        setCurrentMD(`\`error loading file\``)
                 })
         }
     }, []);
@@ -54,6 +54,8 @@ MarkdownPrinter.propTypes = {
     branch: PropTypes.string,
     markdown: PropTypes.string,
     showRepository: PropTypes.bool,
+    useRemarkGfm: PropTypes.bool,
+    useRehypeHighlight: PropTypes.bool,
     markdownConfig: PropTypes.object
 }
 
@@ -63,13 +65,14 @@ MarkdownPrinter.defaultProps = {
     branch: 'main',
     markdown: null,
     showRepository: true,
+    useRemarkGfm: true,
+    useRehypeHighlight: true,
     markdownConfig: {}
 }
 
 export default MarkdownPrinter;
 
 export const LoadGithubReadme = async(username, repository, branch = 'main') => {
-    
     const url = `https://raw.githubusercontent.com/${username}/${repository}/${branch}/README.md`
     
     return await axios.get(url)
