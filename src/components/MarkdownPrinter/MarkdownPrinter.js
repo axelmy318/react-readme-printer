@@ -7,7 +7,7 @@ import './MarkdownPrinter.css'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight';
 
-const MarkdownPrinter = ({ username, repository, branch, markdown }) => {
+const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository }) => {
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
@@ -26,11 +26,11 @@ const MarkdownPrinter = ({ username, repository, branch, markdown }) => {
     return (
     <div className='markdown-container'>
         <div className='markdown-content'>
-            <span className='readme-file'>
+            {showRepository && <span className='readme-file'>
                 <span className='repo'>{username} / {repository}</span> 
                 <IconContext.Provider value={{color: 'grey'}}><LogoDot /></IconContext.Provider> 
                 <span className='file'>README.md</span>
-            </span>
+            </span>}
             <div className='markdown'>
                 <ReactMarkdown 
                     className='markdown-body' 
@@ -49,6 +49,7 @@ MarkdownPrinter.defaultProps = {
     repository: '',
     branch: 'main',
     markdown: null,
+    showRepository: true,
 }
 
 export default MarkdownPrinter;
