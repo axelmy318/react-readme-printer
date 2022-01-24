@@ -1,6 +1,6 @@
 {
   "name": "react-readme-printer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a function to load a readme file from github repositories and a React component to convert markdown to jsx",
   "scripts": {
     "rollup": "rollup -c",
