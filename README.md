@@ -45,5 +45,6 @@ This project relies on [react-markdown](https://www.npmjs.com/package/react-mark
 | repository | string | null | The GitHub repository from which to fetch the README.md |
 | branch | string | "main" | The branch on which to fetch the README.md |
 | showRepository | bool | true | Wether to show the repository name or not. See examples |
+| useRemarkGfm | bool | true | Wether to use the remark-gfm plugin or not. See the documentation for [react-markdown](https://www.npmjs.com/package/react-markdown) for more details |
+| useRehypeHighlight | bool | true | Wether to use the rehype-highlight plugin or not. See the documentation for [react-markdown](https://www.npmjs.com/package/react-markdown) for more details |
 | markdownConfig | object | {} | The props to pass down to the ReactMarkdown component |
-
