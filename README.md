@@ -5,6 +5,7 @@ Provides a function to load a readme file from github repositories and a React c
 `npm i react-readme-printer`
 
 ## Demo 👀
+(...with code 😉)
 [https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer](https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer)
 
 ## Usage 💻
