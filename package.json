@@ -1,6 +1,6 @@
 {
-  "name": "react-weekdays-input",
-  "version": "0.2.1",
+  "name": "react-readme-printer",
+  "version": "0.2.2",
   "description": "Provides a function to load a readme file from github repositories and a React component to convert markdown to jsx",
   "scripts": {
     "rollup": "rollup -c",
@@ -31,13 +31,13 @@
     "rollup": "^2.65.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2"
+    "rollup-plugin-postcss": "^4.0.2",
+    "axios": "^0.25.0",
+    "react-icons": "^4.3.1"
   },
   "peerDependencies": {
-    "axios": "^0.25.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1"
+    "react-dom": "^17.0.2"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -49,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/axelmy318/react-readme.git"
+    "url": "https://github.com/axelmy318/react-readme-printer.git"
   },
   "keywords": [
     "npm",

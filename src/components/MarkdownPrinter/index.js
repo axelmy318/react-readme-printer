@@ -1,2 +1,2 @@
 export { default } from './MarkdownPrinter'
-export { LoadGithubRepoReadme } from './MarkdownPrinter'
+export { LoadGithubReadme } from './MarkdownPrinter'
