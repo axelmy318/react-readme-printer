@@ -1,5 +1,5 @@
 # react-readme-printer 👋
-Provides a function to load a readme file from github repositories and a React component to convert markdown to jsx
+Provides a function to load a readme file from github repositories and a React component to automatically load and convert markdown to jsx
 
 
 ## Installation 
@@ -8,9 +8,7 @@ Provides a function to load a readme file from github repositories and a React c
 
 ## Demo 👀
 
-(...with code 😉)
-
-[https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer](https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer)
+[https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer](https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer) (...with code 😉)
 
 
 ## Usage 💻
