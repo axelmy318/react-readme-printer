@@ -6,8 +6,10 @@ import ReactMarkdown from 'react-markdown';
 import './MarkdownPrinter.css'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight';
+import PropTypes from 'prop-types';
 
-const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository }) => {
+
+const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository, markdownConfig }) => {
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
@@ -37,6 +39,8 @@ const MarkdownPrinter = ({ username, repository, branch, markdown, showRepositor
                     children={currentMD} 
                     remarkPlugins={[remarkGfm]} 
                     rehypePlugins={[rehypeHighlight]}
+
+                    {...markdownConfig}
                 />
             </div>
         </div>
@@ -44,12 +48,22 @@ const MarkdownPrinter = ({ username, repository, branch, markdown, showRepositor
     );
 };
 
+MarkdownPrinter.propTypes = {
+    username: PropTypes.string,
+    repository: PropTypes.string,
+    branch: PropTypes.string,
+    markdown: PropTypes.string,
+    showRepository: PropTypes.bool,
+    markdownConfig: PropTypes.object
+}
+
 MarkdownPrinter.defaultProps = {
     username: '',
     repository: '',
     branch: 'main',
     markdown: null,
     showRepository: true,
+    markdownConfig: {}
 }
 
 export default MarkdownPrinter;
