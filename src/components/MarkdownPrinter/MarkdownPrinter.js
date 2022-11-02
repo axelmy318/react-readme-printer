@@ -13,7 +13,6 @@ const MarkdownPrinter = ({ username, repository, branch, markdown, showRepositor
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
-        if(!currentMD) {
             LoadGithubReadme(username, repository, branch)
                 .then(response => {
                     if(response.success)
@@ -21,8 +20,7 @@ const MarkdownPrinter = ({ username, repository, branch, markdown, showRepositor
                     else
                         setCurrentMD(`\`error loading file\``)
                 })
-        }
-    }, []);
+    }, [username, repository, branch]);
     
 
     return (
