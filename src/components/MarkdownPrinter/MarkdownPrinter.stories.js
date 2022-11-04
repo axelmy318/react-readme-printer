@@ -13,9 +13,9 @@ export default {
 
 const Template = (args) => {
     LoadGithubReadme('axelmy318', 'axelmy318', 'main').then(response => console.log(response))
-    return (<>
-        <MarkdownPrinter {...args} />
-    </>)
+    return (<div style={{backgroundColor: '#20232A', padding: '50px'}}>
+        <MarkdownPrinter {...args} mode={'dark'} />
+    </div>)
 };
 
 export const Primary = Template.bind({});
@@ -32,4 +32,5 @@ Secondary.args = {
     username:'axelmy318',
     repository:'react-weekdays-input' ,
     branch:'master',
+    mode: 'dark'
 };

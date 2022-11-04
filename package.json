@@ -1,13 +1,12 @@
 {
   "name": "react-readme-printer",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Provides a function to load a readme file from github repositories and a React component to automatically load and convert markdown to jsx",
   "scripts": {
     "rollup": "rollup -c",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "publish_github": "npmrc axelmy_github && npm run rollup && npm publish",
-    "publish_npmjs": "npmrc axelmy_npmjs && npm run rollup && npm publish --access=public --scope=unscoped"
+    "publish_npmjs": "npm run rollup && npm publish --access=public --scope=unscoped"
   },
   "author": {
     "name": "Axel Milliery",

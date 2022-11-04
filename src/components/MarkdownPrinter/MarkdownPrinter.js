@@ -9,7 +9,7 @@ import rehypeHighlight from 'rehype-highlight';
 import PropTypes from 'prop-types';
 
 
-const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository, useRemarkGfm, useRehypeHighlight, markdownConfig }) => {
+const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository, useRemarkGfm, useRehypeHighlight, markdownConfig, mode }) => {
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
@@ -24,16 +24,16 @@ const MarkdownPrinter = ({ username, repository, branch, markdown, showRepositor
     
 
     return (
-    <div className='markdown-container'>
-        <div className='markdown-content'>
-            {showRepository && <span className='readme-file'>
-                <span className='repo'>{username} / {repository}</span> 
-                <IconContext.Provider value={{color: 'grey'}}><LogoDot /></IconContext.Provider> 
-                <span className='file'>README.md</span>
+    <div className={`markdown-container ${mode === 'dark' ? 'dark-mode' : ""}`}>
+        <div className={`markdown-content ${mode === 'dark' ? 'dark-mode' : ""}`}>
+            {showRepository && <span className={`readme-file ${mode === 'dark' ? 'dark-mode' : ""}`}>
+                <span className={`repo ${mode === 'dark' ? 'dark-mode' : ""}`}>{username} / {repository}</span> 
+                <IconContext.Provider value={{color: mode === 'dark' ? 'rgb(226, 226, 226)' : 'grey'}}><LogoDot className='repo-dot' /></IconContext.Provider> 
+                <span className={`file ${mode === 'dark' ? 'dark-mode' : ""}`}>README.md</span>
             </span>}
-            <div className='markdown'>
+            <div className={`markdown ${mode === 'dark' ? 'dark-mode' : ""}`}>
                 <ReactMarkdown 
-                    className='markdown-body' 
+                    className={`markdown-body ${mode === 'dark' ? 'dark-mode' : ""}`} 
                     children={currentMD} 
                     remarkPlugins={[remarkGfm]} 
                     rehypePlugins={[rehypeHighlight]}
@@ -54,7 +54,8 @@ MarkdownPrinter.propTypes = {
     showRepository: PropTypes.bool,
     useRemarkGfm: PropTypes.bool,
     useRehypeHighlight: PropTypes.bool,
-    markdownConfig: PropTypes.object
+    markdownConfig: PropTypes.object,
+    mode: PropTypes.string,
 }
 
 MarkdownPrinter.defaultProps = {
@@ -65,7 +66,8 @@ MarkdownPrinter.defaultProps = {
     showRepository: true,
     useRemarkGfm: true,
     useRehypeHighlight: true,
-    markdownConfig: {}
+    markdownConfig: {},
+    mode: "light"
 }
 
 export default MarkdownPrinter;
