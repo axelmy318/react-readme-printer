@@ -12,9 +12,10 @@ export default {
 };
 
 const Template = (args) => {
-    LoadGithubReadme('axelmy318', 'axelmy318', 'main').then(response => console.log(response))
+    const onLoaded = (val) => console.log("Loaded readme", val)
+
     return (<div style={{backgroundColor: '#20232A', padding: '50px'}}>
-        <MarkdownPrinter {...args} mode={'dark'} />
+        <MarkdownPrinter {...args} mode={'dark'} onLoaded={onLoaded} />
     </div>)
 };
 

@@ -9,16 +9,20 @@ import rehypeHighlight from 'rehype-highlight';
 import PropTypes from 'prop-types';
 
 
-const MarkdownPrinter = ({ username, repository, branch, markdown, showRepository, useRemarkGfm, useRehypeHighlight, markdownConfig, mode }) => {
+const MarkdownPrinter = ({ onLoaded, username, repository, branch, markdown, showRepository, useRemarkGfm, useRehypeHighlight, markdownConfig, mode }) => {
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
             LoadGithubReadme(username, repository, branch)
                 .then(response => {
-                    if(response.success)
+                    if(response.success) {
                         setCurrentMD(response.data)
-                    else
+                        onLoaded(true)
+                    }
+                    else {
                         setCurrentMD(`\`error loading file\``)
+                        onLoaded(false)
+                    }
                 })
     }, [username, repository, branch]);
     
@@ -48,6 +52,7 @@ const MarkdownPrinter = ({ username, repository, branch, markdown, showRepositor
 
 MarkdownPrinter.propTypes = {
     username: PropTypes.string,
+    onLoaded: PropTypes.func,
     repository: PropTypes.string,
     branch: PropTypes.string,
     markdown: PropTypes.string,
@@ -67,6 +72,7 @@ MarkdownPrinter.defaultProps = {
     useRemarkGfm: true,
     useRehypeHighlight: true,
     markdownConfig: {},
+    onLoaded: () => {},
     mode: "light"
 }
 
