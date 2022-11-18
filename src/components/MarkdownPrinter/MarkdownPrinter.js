@@ -75,7 +75,7 @@ MarkdownPrinter.defaultProps = {
     markdownConfig: {},
     onLoaded: () => {},
     mode: "light",
-    file: 'READMs'
+    file: 'README'
 }
 
 export default MarkdownPrinter;
