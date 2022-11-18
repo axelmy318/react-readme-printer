@@ -24,7 +24,7 @@ const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdow
                         onLoaded(false)
                     }
                 })
-    }, [username, repository, branch]);
+    }, [username, repository, branch, file]);
     
 
     return (
