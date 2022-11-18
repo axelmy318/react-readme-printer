@@ -9,18 +9,18 @@ import rehypeHighlight from 'rehype-highlight';
 import PropTypes from 'prop-types';
 
 
-const MarkdownPrinter = ({ onLoaded, username, repository, branch, markdown, showRepository, useRemarkGfm, useRehypeHighlight, markdownConfig, mode }) => {
+const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdown, showRepository, markdownConfig, mode }) => {
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
-            LoadGithubReadme(username, repository, branch)
+            LoadGithubReadme(username, repository, branch, file)
                 .then(response => {
                     if(response.success) {
                         setCurrentMD(response.data)
                         onLoaded(true)
                     }
                     else {
-                        setCurrentMD(`\`error loading file\``)
+                        setCurrentMD(`\`This file was not found.\``)
                         onLoaded(false)
                     }
                 })
@@ -33,7 +33,7 @@ const MarkdownPrinter = ({ onLoaded, username, repository, branch, markdown, sho
             {showRepository && <span className={`readme-file ${mode === 'dark' ? 'dark-mode' : ""}`}>
                 <span className={`repo ${mode === 'dark' ? 'dark-mode' : ""}`}>{username} / {repository}</span> 
                 <IconContext.Provider value={{color: mode === 'dark' ? 'rgb(226, 226, 226)' : 'grey'}}><LogoDot className='repo-dot' /></IconContext.Provider> 
-                <span className={`file ${mode === 'dark' ? 'dark-mode' : ""}`}>README.md</span>
+                <span className={`file ${mode === 'dark' ? 'dark-mode' : ""}`}>{file}.md</span>
             </span>}
             <div className={`markdown ${mode === 'dark' ? 'dark-mode' : ""}`}>
                 <ReactMarkdown 
@@ -61,6 +61,7 @@ MarkdownPrinter.propTypes = {
     useRehypeHighlight: PropTypes.bool,
     markdownConfig: PropTypes.object,
     mode: PropTypes.string,
+    file: PropTypes.string,
 }
 
 MarkdownPrinter.defaultProps = {
@@ -73,13 +74,14 @@ MarkdownPrinter.defaultProps = {
     useRehypeHighlight: true,
     markdownConfig: {},
     onLoaded: () => {},
-    mode: "light"
+    mode: "light",
+    file: 'READMs'
 }
 
 export default MarkdownPrinter;
 
-export const LoadGithubReadme = async(username, repository, branch = 'main') => {
-    const url = `https://raw.githubusercontent.com/${username}/${repository}/${branch}/README.md`
+export const LoadGithubReadme = async(username, repository, branch = 'main', file = 'README') => {
+    const url = `https://raw.githubusercontent.com/${username}/${repository}/${branch}/${file}.md`
     
     return await axios.get(url)
         .then((response) =>  {
