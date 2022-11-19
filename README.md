@@ -8,7 +8,7 @@ Provides a function to load a readme file from github repositories and a React c
 
 ## Demo 👀
 
-[https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer](https://axelmy-projects-showcase.firebaseapp.com/react-readme-printer) (...with code 😉)
+[https://axelmry.com/react-readme-printer](https://axelmry.com/react-readme-printer) (...with code 😉)
 
 
 ## Usage 💻
@@ -23,6 +23,7 @@ const Example = () => {
             username='axelmy318'
             repository='react-readme-printer'
             branch='master'
+            file='custom_readme_name'
         />
     )
     
@@ -32,7 +33,7 @@ export default Example
 ```
 
 
-## Dependecies
+## Dependencies
 
 This project relies on [react-markdown](https://www.npmjs.com/package/react-markdown) to convert the markdown files to JSX
 
@@ -44,7 +45,6 @@ This project relies on [react-markdown](https://www.npmjs.com/package/react-mark
 | username | string | null | The GitHub username |
 | repository | string | null | The GitHub repository from which to fetch the README.md |
 | branch | string | "main" | The branch on which to fetch the README.md |
+| file | string | "README" | The filename of the readme file. The `.md` is automatically added |
 | showRepository | bool | true | Wether to show the repository name or not. See examples |
-| useRemarkGfm | bool | true | Wether to use the remark-gfm plugin or not. See the documentation for [react-markdown](https://www.npmjs.com/package/react-markdown) for more details |
-| useRehypeHighlight | bool | true | Wether to use the rehype-highlight plugin or not. See the documentation for [react-markdown](https://www.npmjs.com/package/react-markdown) for more details |
 | markdownConfig | object | {} | The props to pass down to the ReactMarkdown component |
