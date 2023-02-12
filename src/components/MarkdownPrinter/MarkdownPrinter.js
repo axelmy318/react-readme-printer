@@ -7,12 +7,14 @@ import './MarkdownPrinter.css'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight';
 import PropTypes from 'prop-types';
+import rehypeRaw from 'rehype-raw';
 
 
-const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdown, showRepository, markdownConfig, mode }) => {
+const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdown, showRepository, markdownConfig, mode, convertHtmlImgToMarkdown }) => {
     const [currentMD, setCurrentMD] = useState(markdown);
 
     useEffect(() => {
+        if(!markdown) {
             LoadGithubReadme(username, repository, branch, file)
                 .then(response => {
                     if(response.success) {
@@ -20,13 +22,49 @@ const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdow
                         onLoaded(true)
                     }
                     else {
-                        setCurrentMD(`\`This file was not found.\``)
+                        setCurrentMD(`\`This file was not found.<img src="test.svg" />\``)
                         onLoaded(false)
                     }
                 })
+        }
     }, [username, repository, branch, file]);
-    
 
+    const changeImgToGFMImages = md => {
+        if(!md) return md
+
+        var regex = /<img\s+src\s*=\s*("[^"]+"|'[^']+')\s+(?:alt\s*=\s*("[^"]+"|'[^']+')\s+)?(?:width\s*=\s*("[^"]+"|'[^']+')\s+)?(?:height\s*=\s*("[^"]+"|'[^']+')\s+)?\/?>/g;
+        var html = md // Your HTML code
+        var matches;
+        while ((matches = regex.exec(html)) !== null) {
+            console.log("", matches[0]);
+            console.log("src", matches[1]); // src
+            console.log("alt", matches[2]); // alt
+            console.log("width", matches[3]); // width
+            console.log("height", matches[4]); // height
+        }
+
+        const pattern = new RegExp(/<img\s+src\s*=\s*("[^"]+"|'[^']+')\s+(?:alt\s*=\s*("[^"]+"|'[^']+')\s+)?(?:width\s*=\s*("[^"]+"|'[^']+')\s+)?(?:height\s*=\s*("[^"]+"|'[^']+')\s+)?\/?>/g)
+        let newMd = md.replace(pattern, (match, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11) => {
+            console.log("group", [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10])
+            return `![](${p4})`
+        })
+
+        console.log(newMd)
+        return newMd
+    }
+
+    function replaceImgTags(inputString) {
+        if(convertHtmlImgToMarkdown) {
+            let regex = /<img\s*src\s*=\s*("[^"]+"|'[^']+')\s*(?:alt\s*=\s*("[^"]+"|'[^']+')\s*)?(?:width\s*=\s*("[^"]+"|'[^']+')\s*)?(?:height\s*=\s*("[^"]+"|'[^']+')\s*)?\/>/gm;
+            let outputString = inputString.replace(regex, function(match, src, alt) {
+              src = src.replace(/^"|"$|^'|'$/g, '');
+              return `![${alt ? alt.replace(/^"|"$|^'|'$/g, '') : ''}](${src})`;
+            });
+            return outputString;
+        } else 
+            return inputString
+      }
+    
     return (
     <div className={`markdown-container ${mode === 'dark' ? 'dark-mode' : ""}`}>
         <div className={`markdown-content ${mode === 'dark' ? 'dark-mode' : ""}`}>
@@ -38,10 +76,20 @@ const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdow
             <div className={`markdown ${mode === 'dark' ? 'dark-mode' : ""}`}>
                 <ReactMarkdown 
                     className={`markdown-body ${mode === 'dark' ? 'dark-mode' : ""}`} 
-                    children={currentMD} 
+                    children={replaceImgTags(currentMD ?? '')} 
                     remarkPlugins={[remarkGfm]} 
                     rehypePlugins={[rehypeHighlight]}
-
+                    components={{
+                        img(node, ...props) {
+                            console.log(node)
+                            return (<img src={node.src} width='32px'style={{backgroundColor: 'transparent'}} />)
+                        },
+                        h1(node, ...props) {
+                            
+                            console.log(node)
+                            return (<h2>{node.children}</h2>)
+                        }
+                    }}
                     {...markdownConfig}
                 />
             </div>
@@ -62,6 +110,7 @@ MarkdownPrinter.propTypes = {
     markdownConfig: PropTypes.object,
     mode: PropTypes.string,
     file: PropTypes.string,
+    convertHtmlImgToMarkdown: PropTypes.bool
 }
 
 MarkdownPrinter.defaultProps = {
@@ -75,7 +124,8 @@ MarkdownPrinter.defaultProps = {
     markdownConfig: {},
     onLoaded: () => {},
     mode: "light",
-    file: 'README'
+    file: 'README',
+    convertHtmlImgToMarkdown: false
 }
 
 export default MarkdownPrinter;

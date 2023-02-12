@@ -1,6 +1,6 @@
 {
   "name": "react-readme-printer",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "Provides a function to load a readme file from github repositories and a React component to automatically load and convert markdown to jsx",
   "scripts": {
     "rollup": "rollup -c",
@@ -33,9 +33,9 @@
     "rollup-plugin-postcss": "^4.0.2"
   },
   "peerDependencies": {
+    "axios": "^0.25.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "axios": "^0.25.0",
     "react-icons": "^4.3.1"
   },
   "main": "dist/cjs/index.js",
@@ -71,6 +71,9 @@
   "dependencies": {
     "react-markdown": "^8.0.0",
     "rehype-highlight": "^5.0.2",
+    "rehype-inline": "2.0.0",
+    "rehype-inline-svg": "1.1.4",
+    "rehype-raw": "6.1.1",
     "remark-gfm": "^3.0.1"
   }
 }

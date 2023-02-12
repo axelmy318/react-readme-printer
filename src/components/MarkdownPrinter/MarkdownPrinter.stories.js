@@ -23,8 +23,9 @@ export const Primary = Template.bind({});
 Primary.args = {
     showRepository: false,
     username:'axelmy318',
-    repository:'react-weekdays-input' ,
-    branch:'master',
+    repository:'axelmy318' ,
+    branch:'testLogos',
+    convertHtmlImgToMarkdown: true,
 };
 
 export const Secondary = Template.bind({});

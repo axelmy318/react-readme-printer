@@ -48,3 +48,4 @@ This project relies on [react-markdown](https://www.npmjs.com/package/react-mark
 | file | string | "README" | The filename of the readme file. The `.md` is automatically added |
 | showRepository | bool | true | Wether to show the repository name or not. See examples |
 | markdownConfig | object | {} | The props to pass down to the ReactMarkdown component |
+| convertHtmlImgToMarkdown | bool | false | Wether to convert `<img src='foo_bar>` tags into ![](foo_bar) or not |
