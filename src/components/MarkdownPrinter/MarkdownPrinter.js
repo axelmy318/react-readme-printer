@@ -58,7 +58,7 @@ const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdow
             let regex = /<img\s*src\s*=\s*("[^"]+"|'[^']+')\s*(?:alt\s*=\s*("[^"]+"|'[^']+')\s*)?(?:width\s*=\s*("[^"]+"|'[^']+')\s*)?(?:height\s*=\s*("[^"]+"|'[^']+')\s*)?\/>/gm;
             let outputString = inputString.replace(regex, function(match, src, alt) {
               src = src.replace(/^"|"$|^'|'$/g, '');
-              return `![${alt ? alt.replace(/^"|"$|^'|'$/g, '') : ''}](${src})`;
+              return `![${alt ? alt.replace(/^"|"$|^'|'$/g, '') : ''}_convert](${src})`;
             });
             return outputString;
         } else 
@@ -81,13 +81,11 @@ const MarkdownPrinter = ({ onLoaded, username, repository, branch, file, markdow
                     rehypePlugins={[rehypeHighlight]}
                     components={{
                         img(node, ...props) {
-                            console.log(node)
-                            return (<img src={node.src} width='32px'style={{backgroundColor: 'transparent'}} />)
-                        },
-                        h1(node, ...props) {
-                            
-                            console.log(node)
-                            return (<h2>{node.children}</h2>)
+                            if(node.alt && node.alt.endsWith("_convert")) {
+                                return (<img src={node.src} width='32px' style={{backgroundColor: 'transparent'}} />)
+                            } else {
+                                return (<img src={node.src} style={{backgroundColor: 'transparent'}} />)
+                            }
                         }
                     }}
                     {...markdownConfig}
